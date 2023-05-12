@@ -2,6 +2,7 @@ package co.develhope.hellologging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,8 @@ public class AdditionalController {
     private Logger logger = LoggerFactory.getLogger(AdditionalController.class);
 
     private AdditionalService service;
+    @Autowired
+    private MathService mathService;
 
     public AdditionalController(AdditionalService service) {
         this.service = service;
@@ -39,4 +42,12 @@ public class AdditionalController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    @PostMapping("/sum/{a}/{b}")
+    public int sum(@PathVariable int a, @PathVariable int b){
+
+        return mathService.getSum(a, b);
+
+    }
+
 }
